@@ -1,0 +1,52 @@
+Protolib NS3 Development
+
+Protolib files (based off of similar NS2 files):
+	- ./examples/protoExample.cpp
+	- ./examples/protoFileExample.cpp
+	- ./include/protoDefs.h
+		- NS2 Example
+			- #ifdef NS2
+			  #include "scheduler.h"
+			  inline void ProtoSystemTime(struct timeval& theTime)
+			  {
+			      double now = Scheduler::instance().clock();
+			      theTime.tv_sec = (unsigned long)(now);
+			      theTime.tv_usec = (unsigned long)((now - theTime.tv_sec) * 1.0e06);
+			  }
+			  #endif // NS2
+		- TODO
+			- Define a ProtoSystemTime using NS3's timing mechanism
+			- E.g.:
+				- #ifdef NS3
+				  #include "ns3/simulator.h" 
+				  inline void ProtoSystemTime(struct timeval& theTime)
+				  {
+				      double now = ns3::Simulator::Now().GetSeconds();
+				      theTime.tv_sec = (unsigned long)(now);
+				      theTime.tv_usec = (unsigned long)(now - theTime.tv_sec)*1.0e06;
+				  }
+				  #endif // NS3
+
+	- ./include/protoAddress.h
+	- ./src/common/protoAddress.cpp
+		- NS2 Example:
+			-   #ifdef NS2
+				#include "config.h"  // for nsaddr_t which is a 32 bit int?
+				typedef nsaddr_t SIMADDR;
+				#endif // NS2
+		-TODO:
+			- Define SIMADDR (Protolib address) for an NS3 Address. This is not an Ipv4 ADdress, this is how
+			  NS3 stores an ADdress in memory (int, double, etc.). Will need to look this up in NS3 src code (ns3*/src/network/Address.h) 
+			  	- But, could we just use NS3's Ipv4Address class? Have to check on this
+			- include "ns3/Address.h"
+			- typedef Address SIMADDR;
+
+	- ./include/protokit.h
+		- NS2 Example:
+			- #ifdef SIMULATE
+			  #ifdef NS2
+			  #include "nsProtoSimAgent.h"
+			  #endif // NS2
+			- nsProtoSimAgent acts as an Agent to run an ns2 simulation.
+		- TODO:
+			- This ProtoSimAgent will orchestrate Proto Timers, Sockets, and ADdresses for an NS3 scenario
