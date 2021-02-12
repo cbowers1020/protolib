@@ -36,7 +36,7 @@ Protolib files (based off of similar NS2 files):
 				#endif // NS2
 		-TODO:
 			- Define SIMADDR (Protolib address) for an NS3 Address. This is not an Ipv4 ADdress, this is how
-			  NS3 stores an ADdress in memory (int, double, etc.). Will need to look this up in NS3 src code (ns3*/src/network/Address.h) 
+			  NS3 stores an Address in memory (int, double, etc.). Will need to look this up in NS3 src code (ns3*/src/network/Address.h) 
 			  	- But, could we just use NS3's Ipv4Address class? Have to check on this
 			- include "ns3/Address.h"
 			- typedef Address SIMADDR;
